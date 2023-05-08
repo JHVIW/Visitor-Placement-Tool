@@ -12,5 +12,13 @@ namespace Models
         public int Rij_ID { get; set; }
         public int Nummer { get; set; }
         public int? Bezoeker_ID { get; set; }
+
+        public Stoel(int id, int rij_ID, int nummer, int? bezoeker_ID)
+        {
+            ID = id;
+            Rij_ID = rij_ID;
+            Nummer = nummer;
+            Bezoeker_ID = bezoeker_ID;
+        }
     }
 }

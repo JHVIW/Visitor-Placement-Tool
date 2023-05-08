@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Interfaces;
 using Models;
+using System.Data.SqlClient;
 
 namespace DAL
 {
@@ -12,34 +14,121 @@ namespace DAL
     {
         private readonly string _connectionString;
 
-        public EvenementDAL(string connectionString)
+        public EvenementDAL(IConfiguration configuration)
         {
-            _connectionString = connectionString;
+            _connectionString = configuration.GetConnectionString("ConnectionString");
         }
 
         public void CreateEvenement(Evenement evenement)
         {
-            // Implementeer de code om een evenement aan te maken in de database
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "INSERT INTO Evenement (ID, Naam, Datum, Maximum_aantal_bezoekers) VALUES (@ID, @Naam, @Datum, @MaxAantalBezoekers);";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ID", evenement.ID);
+                    command.Parameters.AddWithValue("@Naam", evenement.Naam);
+                    command.Parameters.AddWithValue("@Datum", evenement.Datum);
+                    command.Parameters.AddWithValue("@MaxAantalBezoekers", evenement.MaximumAantalBezoekers);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
         public Evenement GetEvenementById(int id)
         {
-            // Implementeer de code om een evenement op te halen op basis van het ID
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT * FROM Evenement WHERE ID = @Id";
+                var command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Id", id);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        var evenement = new Evenement
+                        {
+                            ID = reader.GetInt32(reader.GetOrdinal("ID")),
+                            Naam = reader.GetString(reader.GetOrdinal("Naam")),
+                            Datum = reader.GetDateTime(reader.GetOrdinal("Datum")),
+                            MaximumAantalBezoekers = reader.GetInt32(reader.GetOrdinal("Maximum_aantal_bezoekers"))
+                        };
+                        return evenement;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
         }
 
         public IEnumerable<Evenement> GetAllEvenementen()
         {
-            // Implementeer de code om alle evenementen op te halen
+            string query = "SELECT * FROM Evenement";
+            List<Evenement> evenementen = new List<Evenement>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Evenement evenement = new Evenement
+                            {
+                                ID = (int)reader["ID"],
+                                Naam = (string)reader["Naam"],
+                                Datum = (DateTime)reader["Datum"],
+                                MaximumAantalBezoekers = (int)reader["Maximum_aantal_bezoekers"]
+                            };
+
+                            evenementen.Add(evenement);
+                        }
+                    }
+                }
+            }
+
+            return evenementen;
         }
 
         public void UpdateEvenement(Evenement evenement)
         {
-            // Implementeer de code om een evenement bij te werken
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                string query = "UPDATE Evenement SET Naam = @Naam, Datum = @Datum, Maximum_aantal_bezoekers = @MaximumAantalBezoekers WHERE ID = @ID";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ID", evenement.ID);
+                    command.Parameters.AddWithValue("@Naam", evenement.Naam);
+                    command.Parameters.AddWithValue("@Datum", evenement.Datum);
+                    command.Parameters.AddWithValue("@MaximumAantalBezoekers", evenement.MaximumAantalBezoekers);
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
-        public void DeleteEvenement(int id)
+        public void DeleteEvenement(int evenementId)
         {
-            // Implementeer de code om een evenement te verwijderen op basis van het ID
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                string query = "DELETE FROM Evenement WHERE ID = @Id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", evenementId);
+                    command.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

@@ -5,15 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Interfaces;
 using Models;
+using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 namespace DAL
 {
     public class BezoekerDAL : IBezoekerDAL
     {
         private readonly string _connectionString;
-        public BezoekerDAL(string connectionString)
+
+        public BezoekerDAL(IConfiguration configuration)
         {
-            _connectionString = connectionString;
+            _connectionString = configuration.GetConnectionString("ConnectionString");
         }
 
         public void CreateBezoeker(Bezoeker bezoeker)

@@ -14,5 +14,17 @@ namespace Models
         public int TotaalAantalBezoekers { get; set; }
         public int KinderenAantal { get; set; }
         public int VolwassenenAantal { get; set; }
+
+        public Groep(int id, int evenementId, DateTime aanmeldingsdatum, int totaalAantalBezoekers, int kinderenAantal, int volwassenenAantal)
+        {
+            ID = id;
+            Evenement_ID = evenementId;
+            Aanmeldingsdatum = aanmeldingsdatum;
+            TotaalAantalBezoekers = totaalAantalBezoekers;
+            KinderenAantal = kinderenAantal;
+            VolwassenenAantal = volwassenenAantal;
+        }
     }
+
+
 }

@@ -13,5 +13,14 @@ namespace Models
         public char Letter { get; set; }
         public int AantalRijen { get; set; }
         public int AantalStoelenPerRij { get; set; }
+
+        public Vak(int id, int evenementId, char letter, int aantalRijen, int aantalStoelenPerRij)
+        {
+            ID = id;
+            Evenement_ID = evenementId;
+            Letter = letter;
+            AantalRijen = aantalRijen;
+            AantalStoelenPerRij = aantalStoelenPerRij;
+        }
     }
 }
