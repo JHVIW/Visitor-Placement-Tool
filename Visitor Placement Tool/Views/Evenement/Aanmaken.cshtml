@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Evenement aanmaken";
+}
+
+<h2>Evenement aanmaken</h2>
+
+<form asp-action="Aanmaken" method="post">
+    <div class="form-group">
+        <label asp-for="Evenement.Naam">Naam</label>
+        <input asp-for="Evenement.Naam" class="form-control" />
+        <span asp-validation-for="Evenement.Naam" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Evenement.Datum">Datum</label>
+        <input asp-for="Evenement.Datum" type="date" class="form-control" />
+        <span asp-validation-for="Evenement.Datum" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Evenement.MaximumAantalBezoekers">Max. aantal bezoekers</label>
+        <input asp-for="Evenement.MaximumAantalBezoekers" class="form-control" />
+        <span asp-validation-for="Evenement.MaximumAantalBezoekers" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Aanmaken</button>
+</form>

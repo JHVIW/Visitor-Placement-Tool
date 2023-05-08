@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Models.Evenement>
+
+@{
+    ViewBag.Title = "Evenementen";
+}
+<head>
+    <link rel="stylesheet" href="~/css/index.css" />
+</head>
+<h2>Evenementen</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Naam</th>
+            <th>Datum</th>
+            <th>Max. aantal bezoekers</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var evenement in Model)
+        {
+            <tr>
+                <td>@evenement.ID</td>
+                <td>@evenement.Naam</td>
+                <td>@evenement.Datum.ToString("d")</td>
+                <td>@evenement.MaximumAantalBezoekers</td>
+                <td>
+                    <a asp-action="Bewerken" asp-route-id="@evenement.ID">Bewerken</a> |
+                    <a asp-action="Verwijderen" asp-route-id="@evenement.ID">Verwijderen</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="/Evenement/Aanmaken" class="btn btn-primary">Nieuw Evenement</a>

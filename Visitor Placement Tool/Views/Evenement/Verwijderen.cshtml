@@ -1,0 +1,17 @@
+﻿@model Models.Evenement
+
+@{
+    ViewBag.Title = "Evenement verwijderen";
+}
+
+<h2>Weet u zeker dat u dit evenement wilt verwijderen?</h2>
+
+<p>Naam: @Model.Naam</p>
+<p>Datum: @Model.Datum.ToString("d")</p>
+<p>Max. aantal bezoekers: @Model.MaximumAantalBezoekers</p>
+
+<form asp-action="Verwijderen">
+    <input type="hidden" asp-for="ID" />
+    <button type="submit" class="btn btn-danger">Verwijderen</button>
+    <a asp-action="Index">Annuleren</a>
+</form>

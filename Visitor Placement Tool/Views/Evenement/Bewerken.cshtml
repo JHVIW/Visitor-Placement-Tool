@@ -1,0 +1,27 @@
+﻿@model Models.Evenement
+
+@{
+    ViewBag.Title = "Evenement bewerken";
+}
+
+<h2>Evenement bewerken</h2>
+
+<form asp-action="Bewerken">
+    <input type="hidden" asp-for="ID" />
+    <div class="form-group">
+        <label asp-for="Naam">Naam</label>
+        <input asp-for="Naam" class="form-control" />
+        <span asp-validation-for="Naam" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Datum">Datum</label>
+        <input asp-for="Datum" type="date" class="form-control" />
+        <span asp-validation-for="Datum" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="MaximumAantalBezoekers">Max. aantal bezoekers</label>
+        <input asp-for="MaximumAantalBezoekers" class="form-control" />
+        <span asp-validation-for="MaximumAantalBezoekers" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Opslaan</button>
+</form>

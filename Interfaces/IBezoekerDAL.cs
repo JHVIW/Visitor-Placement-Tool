@@ -13,5 +13,8 @@ namespace Interfaces
         Bezoeker GetBezoekerById(int id);
         void UpdateBezoeker(Bezoeker bezoeker);
         void DeleteBezoeker(int id);
+        List<Bezoeker> GetAllBezoekers();
+
+
     }
 }
