@@ -29,7 +29,11 @@
                 <td>@evenement.Datum.ToString("d")</td>
                 <td>@evenement.MaximumAantalBezoekers</td>
                 <td>
-                    <a asp-action="Bewerken" asp-route-id="@evenement.ID">Bewerken</a> |
+
+                    <form action="/Evenement/Bewerken" method="get">
+                        <input type="hidden" name="id" value="@evenement.ID" />
+                        <input type="submit" value="Bewerken" class="button" />
+                    </form>
 
                     <form action="/Evenement/Verwijderen" method="post">
                         <input type="hidden" name="id" value="@evenement.ID" />

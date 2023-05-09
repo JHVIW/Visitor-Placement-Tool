@@ -53,6 +53,8 @@ namespace Visitor_Placement_Tool
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Evenement}/{action=Index}/{id?}");
+              
+
             });
         }
     }

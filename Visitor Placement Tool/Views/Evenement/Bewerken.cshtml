@@ -1,27 +1,40 @@
 ﻿@model DTO.Evenement
 
-@{
-    ViewBag.Title = "Evenement bewerken";
-}
 
+<head>
+    <link rel="stylesheet" href="~/css/Aanmaken.css" />
+</head>
 <h2>Evenement bewerken</h2>
 
-<form asp-action="Bewerken" method="post">
-    <input type="hidden" asp-for="ID" />
+<form asp-action="Bewerken" method="post" onsubmit="return validateForm()">
     <div class="form-group">
-        <label asp-for="Naam">Naam</label>
-        <input asp-for="Naam" class="form-control" />
-        <span asp-validation-for="Naam" class="text-danger"></span>
+        <label asp-for="Naam"></label>
+        <input name="Naam" class="form-control" value="@Model.Naam" />
+        <input name="ID" type="hidden" class="form-control" value="@Model.ID" />
+        <span asp-validation-for="Naam"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Datum">Datum</label>
-        <input asp-for="Datum" type="date" class="form-control" />
-        <span asp-validation-for="Datum" class="text-danger"></span>
+        <label asp-for="Datum"></label>
+        <input name="Datum" id="datum" type="date" class="form-control" value="@Model.Datum" />
+        <span asp-validation-for="Datum"></span>
     </div>
     <div class="form-group">
-        <label asp-for="MaximumAantalBezoekers">Max. aantal bezoekers</label>
-        <input asp-for="MaximumAantalBezoekers" class="form-control" />
-        <span asp-validation-for="MaximumAantalBezoekers" class="text-danger"></span>
+        <label asp-for="MaximumAantalBezoekers"></label>
+        <input name="MaximumAantalBezoekers" class="form-control" value="@Model.MaximumAantalBezoekers" />
+        <span asp-validation-for="MaximumAantalBezoekers"></span>
     </div>
-    <button type="submit" class="btn btn-primary">Opslaan</button>
+    <input type="submit" value="Opslaan" class="btn btn-primary" />
 </form>
+
+<script>
+    function validateForm() {
+        var datum = document.getElementById("datum").value;
+        if (datum == "") {
+            alert("Vul de datum in voordat u opslaat!");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+<button onclick="window.location.href='/Evenement/Index'" class="btn btn-secondary">Terug naar evenementen</button>

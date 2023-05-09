@@ -38,8 +38,9 @@ namespace Visitor_Placement_Tool.Controllers
             return View(evenement);
         }
 
-        public IActionResult Bewerken(int id)
+        public IActionResult Bewerken()
         {
+            int id = int.Parse(Request.Query["id"]);
             var evenement = _evenementManager.HaalEvenementOp(id);
 
             if (evenement == null)
@@ -51,13 +52,11 @@ namespace Visitor_Placement_Tool.Controllers
         }
 
         [HttpPost]
-        public IActionResult Bewerken(int id, Evenement evenement)
+        public IActionResult Bewerken(int id,Evenement evenement)
         {
-            if (ModelState.IsValid)
-            {
+
                 _evenementManager.UpdateEvenement(id, evenement.Naam, evenement.Datum, evenement.MaximumAantalBezoekers);
                 return RedirectToAction("Index");
-            }
 
             return View(evenement);
         }
