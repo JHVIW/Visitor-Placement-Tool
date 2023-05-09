@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Interfaces;
-using Models;
+using DTO;
 
 namespace Logic
 {

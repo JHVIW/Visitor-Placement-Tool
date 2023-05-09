@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Interfaces;
-using Models;
+using DTO;
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 namespace DAL

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Interfaces;
-using Models;
+using DTO;
 using System.Data.SqlClient;
 
 namespace DAL
@@ -23,10 +23,10 @@ namespace DAL
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "INSERT INTO Evenement (ID, Naam, Datum, Maximum_aantal_bezoekers) VALUES (@ID, @Naam, @Datum, @MaxAantalBezoekers);";
+
+                string query = "INSERT INTO Evenement (Naam, Datum, Maximum_aantal_bezoekers) VALUES (@Naam, @Datum, @MaxAantalBezoekers);";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@ID", evenement.ID);
                     command.Parameters.AddWithValue("@Naam", evenement.Naam);
                     command.Parameters.AddWithValue("@Datum", evenement.Datum);
                     command.Parameters.AddWithValue("@MaxAantalBezoekers", evenement.MaximumAantalBezoekers);

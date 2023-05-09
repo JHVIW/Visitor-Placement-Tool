@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Interfaces;
 using Microsoft.Extensions.Configuration;
-using Models;
+using DTO;
 
 namespace DAL
 {

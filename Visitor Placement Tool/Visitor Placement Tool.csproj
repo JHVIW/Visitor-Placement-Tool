@@ -11,7 +11,7 @@
     <ProjectReference Include="..\DAL\DAL.csproj" />
     <ProjectReference Include="..\Interfaces\Interfaces.csproj" />
     <ProjectReference Include="..\Logic\Logic.csproj" />
-    <ProjectReference Include="..\Models\Models.csproj" />
+    <ProjectReference Include="..\Models\DTO.csproj" />
   </ItemGroup>
 
   <ItemGroup>

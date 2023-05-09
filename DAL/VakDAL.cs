@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Interfaces;
-using Models;
+using DTO;
 using System.Data.SqlClient;
 
 namespace DAL

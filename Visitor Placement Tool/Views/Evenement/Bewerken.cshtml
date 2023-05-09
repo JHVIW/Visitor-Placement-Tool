@@ -1,4 +1,4 @@
-﻿@model Models.Evenement
+﻿@model DTO.Evenement
 
 @{
     ViewBag.Title = "Evenement bewerken";
@@ -6,7 +6,7 @@
 
 <h2>Evenement bewerken</h2>
 
-<form asp-action="Bewerken">
+<form asp-action="Bewerken" method="post">
     <input type="hidden" asp-for="ID" />
     <div class="form-group">
         <label asp-for="Naam">Naam</label>

@@ -1,24 +1,28 @@
-﻿@{
+﻿@model DTO.Evenement
+
+@{
     ViewBag.Title = "Evenement aanmaken";
 }
-
-<h2>Evenement aanmaken</h2>
+<head>
+    <link rel="stylesheet" href="~/css/Aanmaken.css" />
+</head>
 
 <form asp-action="Aanmaken" method="post">
     <div class="form-group">
-        <label asp-for="Evenement.Naam">Naam</label>
-        <input asp-for="Evenement.Naam" class="form-control" />
-        <span asp-validation-for="Evenement.Naam" class="text-danger"></span>
+        <label asp-for="Naam">Naam</label>
+        <input asp-for="Naam" class="form-control" name="Naam" autocomplete="off" />
+        <span asp-validation-for="Naam" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Evenement.Datum">Datum</label>
-        <input asp-for="Evenement.Datum" type="date" class="form-control" />
-        <span asp-validation-for="Evenement.Datum" class="text-danger"></span>
+        <label asp-for="Datum">Datum</label>
+        <input asp-for="Datum" type="date" class="form-control" name="Datum" />
+        <span asp-validation-for="Datum" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Evenement.MaximumAantalBezoekers">Max. aantal bezoekers</label>
-        <input asp-for="Evenement.MaximumAantalBezoekers" class="form-control" />
-        <span asp-validation-for="Evenement.MaximumAantalBezoekers" class="text-danger"></span>
+        <label asp-for="MaximumAantalBezoekers">Max. aantal bezoekers</label>
+        <input asp-for="MaximumAantalBezoekers" class="form-control" name="MaximumAantalBezoekers" autocomplete="off" />
+        <span asp-validation-for="MaximumAantalBezoekers" class="text-danger"></span>
+        <br />
+        <button type="submit" class="btn btn-primary">Aanmaken</button>
     </div>
-    <button type="submit" class="btn btn-primary">Aanmaken</button>
 </form>

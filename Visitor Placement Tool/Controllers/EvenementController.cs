@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Logic;
-using Models;
+using DTO;
 using Interfaces;
+using System.Diagnostics;
 
 namespace Visitor_Placement_Tool.Controllers
 {
@@ -63,21 +64,11 @@ namespace Visitor_Placement_Tool.Controllers
 
         public IActionResult Verwijderen(int id)
         {
-            var evenement = _evenementManager.HaalEvenementOp(id);
-
-            if (evenement == null)
-            {
-                return NotFound();
-            }
-
-            return View(evenement);
-        }
-
-        [HttpPost]
-        public IActionResult VerwijderenBevestigd(int id)
-        {
+          
             _evenementManager.VerwijderEvenement(id);
+
             return RedirectToAction("Index");
+            
         }
     }
 }

@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visitor Placement Tool", "Visitor Placement Tool\Visitor Placement Tool.csproj", "{9F2D461A-28CA-4D3C-B3C0-0263269BC905}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Visitor Placement Tool", "Visitor Placement Tool\Visitor Placement Tool.csproj", "{9F2D461A-28CA-4D3C-B3C0-0263269BC905}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{3152FB5B-AA7C-4671-8CF6-225DDDF091E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO", "Models\DTO.csproj", "{3152FB5B-AA7C-4671-8CF6-225DDDF091E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "Interfaces\Interfaces.csproj", "{14316583-6F55-42B5-961E-E4F9550A0BD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interfaces", "Interfaces\Interfaces.csproj", "{14316583-6F55-42B5-961E-E4F9550A0BD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{A89B8B9B-7615-4A42-A03E-E973C0E1244B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{A89B8B9B-7615-4A42-A03E-E973C0E1244B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "Logic\Logic.csproj", "{B89F688B-1EE3-4D42-B5B5-E70F728BEFD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic", "Logic\Logic.csproj", "{B89F688B-1EE3-4D42-B5B5-E70F728BEFD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

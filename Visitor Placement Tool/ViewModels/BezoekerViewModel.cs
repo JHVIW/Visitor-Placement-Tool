@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Models;
+using DTO;
 namespace Visitor_Placement_Tool.ViewModels
 {
     public class BezoekerViewModel

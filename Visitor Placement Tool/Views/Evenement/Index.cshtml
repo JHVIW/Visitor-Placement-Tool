@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Models.Evenement>
+﻿@model IEnumerable<DTO.Evenement>
+
 
 @{
     ViewBag.Title = "Evenementen";
@@ -29,11 +30,18 @@
                 <td>@evenement.MaximumAantalBezoekers</td>
                 <td>
                     <a asp-action="Bewerken" asp-route-id="@evenement.ID">Bewerken</a> |
-                    <a asp-action="Verwijderen" asp-route-id="@evenement.ID">Verwijderen</a>
+
+                    <form action="/Evenement/Verwijderen" method="post">
+                        <input type="hidden" name="id" value="@evenement.ID" />
+                        <input type="submit" value="Verwijderen" class="button" />
+                    </form>
                 </td>
             </tr>
         }
+
+       
+
     </tbody>
 </table>
 
-<a href="/Evenement/Aanmaken" class="btn btn-primary">Nieuw Evenement</a>
+<a href="/Evenement/Aanmaken" class="button">Nieuw Evenement</a>
