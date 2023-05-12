@@ -13,9 +13,8 @@ namespace DTO
         public int Nummer { get; set; }
         public int AantalStoelen { get; set; }
 
-        public Rij(int id, int vakId, int nummer, int aantalStoelen)
+        public Rij(int vakId, int nummer, int aantalStoelen)
         {
-            ID = id;
             Vak_ID = vakId;
             Nummer = nummer;
             AantalStoelen = aantalStoelen;

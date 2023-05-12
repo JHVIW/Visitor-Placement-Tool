@@ -16,7 +16,7 @@ namespace DAL
 
         public RijDAL(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("ConnectionString");
+            _connectionString = "Server=mssqlstud.fhict.local;Database=dbi482609_eventtool;User Id=dbi482609_eventtool;Password=Rviw2003%;";
         }
 
         public void CreateRij(Rij rij)
@@ -51,7 +51,7 @@ namespace DAL
                     int vakId = Convert.ToInt32(reader["Vak_ID"]);
                     int nummer = Convert.ToInt32(reader["Nummer"]);
                     int aantalStoelen = Convert.ToInt32(reader["Aantal_stoelen"]);
-                    Rij rij = new Rij(id, vakId, nummer, aantalStoelen);
+                    Rij rij = new Rij(vakId, nummer, aantalStoelen);
                     return rij;
                 }
                 else
@@ -80,7 +80,7 @@ namespace DAL
                             int vak_ID = (int)reader["Vak_ID"];
                             int nummer = (int)reader["Nummer"];
                             int aantal_stoelen = (int)reader["Aantal_stoelen"];
-                            Rij rij = new Rij(id, vak_ID, nummer, aantal_stoelen);
+                            Rij rij = new Rij(vak_ID, nummer, aantal_stoelen);
                             rijen.Add(rij);
                         }
                     }

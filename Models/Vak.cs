@@ -22,5 +22,7 @@ namespace DTO
             AantalRijen = aantalRijen;
             AantalStoelenPerRij = aantalStoelenPerRij;
         }
+
+        public Vak() { }
     }
 }

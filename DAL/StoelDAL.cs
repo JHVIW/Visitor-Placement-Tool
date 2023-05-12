@@ -16,7 +16,7 @@ namespace DAL
 
         public StoelDAL(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("ConnectionString");
+            _connectionString = "Server=mssqlstud.fhict.local;Database=dbi482609_eventtool;User Id=dbi482609_eventtool;Password=Rviw2003%;";
         }
 
         public void CreateStoel(Stoel stoel)
@@ -50,7 +50,7 @@ namespace DAL
                     int rijId = Convert.ToInt32(reader["Rij_ID"]);
                     int nummer = Convert.ToInt32(reader["Nummer"]);
                     int? bezoekerId = reader.IsDBNull(reader.GetOrdinal("Bezoeker_ID")) ? null : (int?)Convert.ToInt32(reader["Bezoeker_ID"]);
-                    Stoel stoel = new Stoel(id, rijId, nummer, bezoekerId);
+                    Stoel stoel = new Stoel(rijId, nummer, bezoekerId);
                     return stoel;
                 }
                 else
@@ -78,7 +78,7 @@ namespace DAL
                             int rij_ID = (int)reader["Rij_ID"];
                             int nummer = (int)reader["Nummer"];
                             int? bezoeker_ID = reader["Bezoeker_ID"] == DBNull.Value ? null : (int?)reader["Bezoeker_ID"];
-                            Stoel stoel = new Stoel(id, rij_ID, nummer, bezoeker_ID);
+                            Stoel stoel = new Stoel(rij_ID, nummer, bezoeker_ID);
                             stoelen.Add(stoel);
                         }
                     }

@@ -30,6 +30,9 @@ namespace Visitor_Placement_Tool
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddTransient<IVakDAL, VakDAL>();
+            services.AddTransient<IRijDAL, RijDAL>();
+            services.AddTransient<IStoelDAL, StoelDAL>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

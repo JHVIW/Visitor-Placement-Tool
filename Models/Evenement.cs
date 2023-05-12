@@ -12,5 +12,6 @@ namespace DTO
         public string Naam { get; set; }
         public DateTime Datum { get; set; }
         public int MaximumAantalBezoekers { get; set; }
+        public List<Vak> Vakken { get; set; }
     }
 }

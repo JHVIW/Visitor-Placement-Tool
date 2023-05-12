@@ -23,6 +23,35 @@
         <input asp-for="MaximumAantalBezoekers" class="form-control" name="MaximumAantalBezoekers" autocomplete="off" />
         <span asp-validation-for="MaximumAantalBezoekers" class="text-danger"></span>
         <br />
-        <button type="submit" class="btn btn-primary">Aanmaken</button>
+    </div>
+    <div class="form-group">
+        <label>Vakken</label>
+        <div id="vakken">
+            <!-- Vakken zullen dynamisch hier worden toegevoegd -->
+        </div>
+        <button type="button" class="btn btn-primary" onclick="voegVakToe()">Voeg vak toe</button>
+        <button type="submit" class="btn btn-primary">Opslaan</button>
     </div>
 </form>
+
+<script>
+    let vakCount = 0;
+
+    function voegVakToe() {
+        let vakkenDiv = document.getElementById("vakken");
+        let vakDiv = document.createElement("div");
+
+        vakDiv.innerHTML = `
+                <h5>Vak ${vakCount + 1}</h5>
+                <label for="vak${vakCount}Letter">Letter</label>
+                <input name="vakken[${vakCount}].Letter" id="vak${vakCount}Letter" required class="form-control" />
+                <label for="vak${vakCount}AantalRijen">Aantal Rijen</label>
+                <input name="vakken[${vakCount}].AantalRijen" id="vak${vakCount}AantalRijen" type="number" min="1" max="3" required class="form-control" />
+                <label for="vak${vakCount}AantalStoelenPerRij">Aantal Stoelen Per Rij</label>
+                <input name="vakken[${vakCount}].AantalStoelenPerRij" id="vak${vakCount}AantalStoelenPerRij" type="number" min="3" max="10" required class="form-control" />
+            `;
+
+        vakkenDiv.appendChild(vakDiv);
+        vakCount++;
+    }
+</script>

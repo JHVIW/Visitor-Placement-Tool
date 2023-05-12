@@ -10,9 +10,9 @@ namespace Visitor_Placement_Tool.Controllers
     {
         private readonly EvenementManager _evenementManager;
 
-        public EvenementController(IEvenementDAL evenementDAL)
+        public EvenementController(IEvenementDAL evenementDAL, IVakDAL vakDAL, IRijDAL rijDAL, IStoelDAL stoelDAL)
         {
-            _evenementManager = new EvenementManager(evenementDAL);
+            _evenementManager = new EvenementManager(evenementDAL, vakDAL, rijDAL, stoelDAL);
         }
 
         public IActionResult Index()
@@ -26,12 +26,19 @@ namespace Visitor_Placement_Tool.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost]  
         public IActionResult Aanmaken(Evenement evenement)
         {
             if (ModelState.IsValid)
             {
-                _evenementManager.MaakEvenement(evenement.Naam, evenement.Datum, evenement.MaximumAantalBezoekers);
+                Debug.WriteLine(System.Text.Json.JsonSerializer.Serialize(evenement));
+
+                _evenementManager.MaakEvenement(
+                    evenement.Naam,
+                    evenement.Datum,
+                    evenement.MaximumAantalBezoekers,
+                    evenement.Vakken
+                );
                 return RedirectToAction("Index");
             }
 

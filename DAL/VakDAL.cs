@@ -16,7 +16,7 @@ namespace DAL
 
         public VakDAL(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("ConnectionString");
+            _connectionString = "Server=mssqlstud.fhict.local;Database=dbi482609_eventtool;User Id=dbi482609_eventtool;Password=Rviw2003%;";
         }
 
         public void CreateVak(Vak vak)
