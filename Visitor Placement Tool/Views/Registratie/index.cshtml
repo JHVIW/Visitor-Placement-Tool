@@ -1,0 +1,34 @@
+﻿@model IEnumerable<DTO.Evenement>
+<head>
+    <link rel="stylesheet" href="~/css/index.css" />
+</head>
+<h2>Evenementen</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Naam</th>
+            <th>Datum</th>
+            <th>Max. aantal bezoekers</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var evenement in Model)
+        {
+            <tr>
+                <td>@evenement.ID</td>
+                <td>@evenement.Naam</td>
+                <td>@evenement.Datum.ToString("d")</td>
+                <td>@evenement.MaximumAantalBezoekers</td>
+                <td>
+                    <form action="/Registratie/Registreren" method="get">
+                        <input type="hidden" name="id" value="@evenement.ID" />
+                        <input type="submit" value="Registreren" class="button" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

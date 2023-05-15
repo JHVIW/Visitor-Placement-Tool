@@ -1,0 +1,58 @@
+﻿@model DTO.Evenement
+
+@{
+    ViewBag.Title = "Registratie";
+}
+
+<h2>Registratie voor @Model.Naam</h2>
+
+<h3>Individuele registratie</h3>
+<form action="/Registratie/RegistrerenIndividueel" method="post">
+    <input type="hidden" name="Evenement_ID" value="@Model.ID" />
+    <label for="Naam">Naam:</label>
+    <input type="text" id="Naam" name="Naam" required />
+    <label for="Geboortedatum">Geboortedatum:</label>
+    <input type="date" id="Geboortedatum" name="Geboortedatum" required />
+    <input type="submit" value="Individueel registreren" />
+</form>
+
+<h3>Groepsregistratie</h3>
+<form action="/Registratie/RegistrerenGroep" method="post">
+    <input type="hidden" name="Evenement_ID" value="@Model.ID" />
+    <label for="TotaalAantalBezoekers">Totaal aantal bezoekers:</label>
+    <input type="number" id="TotaalAantalBezoekers" name="TotaalAantalBezoekers" required />
+
+    <h3>Voer bezoekers in:</h3>
+    <div id="bezoekers">
+        <div class="bezoeker">
+            <label for="Naam">Naam:</label>
+            <input type="text" id="Naam" name="Bezoekers[0].Naam" required />
+            <label for="Geboortedatum">Geboortedatum:</label>
+            <input type="date" id="Geboortedatum" name="Bezoekers[0].Geboortedatum" required />
+        </div>
+    </div>
+
+    <button type="button" id="addBezoeker">Voeg bezoeker toe</button>
+    <input type="submit" value="Groep registreren" />
+</form>
+
+<script>
+    let bezoekerIndex = 1;
+
+    document.getElementById('addBezoeker').addEventListener('click', function () {
+        let bezoekersDiv = document.getElementById('bezoekers');
+        let newBezoekerDiv = document.createElement('div');
+
+        newBezoekerDiv.innerHTML = `
+                    <div class="bezoeker">
+                        <label for="Naam">Naam:</label>
+                        <input type="text" id="Naam" name="Bezoekers[${bezoekerIndex}].Naam" required />
+                        <label for="Geboortedatum">Geboortedatum:</label>
+                        <input type="date" id="Geboortedatum" name="Bezoekers[${bezoekerIndex}].Geboortedatum" required />
+                    </div>
+                `;
+
+        bezoekersDiv.appendChild(newBezoekerDiv);
+        bezoekerIndex++;
+    });
+</script>

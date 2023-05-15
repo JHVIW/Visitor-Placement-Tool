@@ -24,9 +24,10 @@ namespace DAL
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
 
-                string query = "INSERT INTO Evenement (Naam, Datum, Maximum_aantal_bezoekers) VALUES (@Naam, @Datum, @MaxAantalBezoekers);";
+                string query = "INSERT INTO Evenement (ID, Naam, Datum, Maximum_aantal_bezoekers) VALUES (@ID, @Naam, @Datum, @MaxAantalBezoekers);";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
+                    command.Parameters.AddWithValue("ID", evenement.ID);
                     command.Parameters.AddWithValue("@Naam", evenement.Naam);
                     command.Parameters.AddWithValue("@Datum", evenement.Datum);
                     command.Parameters.AddWithValue("@MaxAantalBezoekers", evenement.MaximumAantalBezoekers);
@@ -127,6 +128,42 @@ namespace DAL
                 {
                     command.Parameters.AddWithValue("@Id", evenementId);
                     command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public IEnumerable<Stoel> HaalAlleStoelenVoorEvenementOp(int evenementId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = @"
+                SELECT Stoel.ID, Stoel.Rij_ID, Stoel.Nummer, Stoel.Bezoeker_ID
+                FROM Stoel
+                JOIN Rij ON Rij.ID = Stoel.Rij_ID
+                JOIN Vak ON Vak.ID = Rij.Vak_ID
+                WHERE Vak.Evenement_ID = @EvenementId
+        ";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@EvenementId", evenementId);
+
+                    connection.Open();
+
+                    List<Stoel> stoelen = new List<Stoel>();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int stoelId = (int)reader["ID"];
+                        int rijId = (int)reader["Rij_ID"];
+                        int stoelNummer = (int)reader["Nummer"];
+                        int? bezoekerId = reader.IsDBNull(reader.GetOrdinal("Bezoeker_ID")) ? null : (int?)reader["Bezoeker_ID"];
+
+                        Stoel stoel = new Stoel(stoelId, rijId, stoelNummer, bezoekerId);
+                        stoelen.Add(stoel);
+                    }
+
+                    return stoelen;
                 }
             }
         }

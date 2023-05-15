@@ -14,5 +14,6 @@ namespace Interfaces
         IEnumerable<Evenement> GetAllEvenementen();
         void UpdateEvenement(Evenement evenement);
         void DeleteEvenement(int id);
+        IEnumerable<Stoel> HaalAlleStoelenVoorEvenementOp(int evenementId);
     }
 }

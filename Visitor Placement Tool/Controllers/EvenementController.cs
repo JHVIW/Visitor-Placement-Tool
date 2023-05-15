@@ -27,20 +27,20 @@ namespace Visitor_Placement_Tool.Controllers
         }
 
         [HttpPost]  
-        public IActionResult Aanmaken(Evenement evenement)
+        public IActionResult Aanmaken(Evenement evenement, int evenementId)
         {
-            if (ModelState.IsValid)
-            {
+
                 Debug.WriteLine(System.Text.Json.JsonSerializer.Serialize(evenement));
+                evenement.ID = evenementId; 
 
                 _evenementManager.MaakEvenement(
+                    evenement.ID,
                     evenement.Naam,
                     evenement.Datum,
-                    evenement.MaximumAantalBezoekers,
-                    evenement.Vakken
+                    evenement.MaximumAantalBezoekers
                 );
                 return RedirectToAction("Index");
-            }
+
 
             return View(evenement);
         }

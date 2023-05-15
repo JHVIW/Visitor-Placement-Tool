@@ -24,40 +24,13 @@
                 _stoelDAL = stoelDAL;
             }
 
-            public void MaakEvenement(string naam, DateTime datum, int maxAantalBezoekers, List<Vak> vakken)
-            {
-                // Maak het evenement en sla het op in de database
-                Evenement evenement = new Evenement() { Naam = naam, Datum = datum, MaximumAantalBezoekers = maxAantalBezoekers };
-                _evenementDAL.CreateEvenement(evenement);
+        public void MaakEvenement(int id, string naam, DateTime datum, int maxAantalBezoekers)
+        {
+            Evenement evenement = new Evenement() { ID = id, Naam = naam, Datum = datum, MaximumAantalBezoekers = maxAantalBezoekers };
+            _evenementDAL.CreateEvenement(evenement);
+        }
 
-                // Sla het ID van het nieuwe evenement op
-                int evenementId = evenement.ID;
-            Debug.WriteLine(evenementId);
-
-                // Maak de vakken en rijen
-                foreach (Vak vak in vakken)
-                {
-                    vak.Evenement_ID = evenementId;
-                    _vakDAL.CreateVak(vak);
-
-                    int vakId = vak.ID;
-                    for (int i = 0; i < vak.AantalRijen; i++)
-                    {
-                        Rij rij = new Rij(vakId, i + 1, vak.AantalStoelenPerRij);
-                        _rijDAL.CreateRij(rij);
-
-                        // Maak de stoelen voor elke rij
-                        int rijId = rij.ID;
-                        for (int j = 0; j < vak.AantalStoelenPerRij; j++)
-                        {
-                            Stoel stoel = new Stoel(rijId, j + 1, null);
-                            _stoelDAL.CreateStoel(stoel);
-                        }
-                    }
-                }
-            }   
-
-            public void UpdateEvenement(int id, string naam, DateTime datum, int maxAantalBezoekers)
+        public void UpdateEvenement(int id, string naam, DateTime datum, int maxAantalBezoekers)
             {
                 var evenement = _evenementDAL.GetEvenementById(id);
 
