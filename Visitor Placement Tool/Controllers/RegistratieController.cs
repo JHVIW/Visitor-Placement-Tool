@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DTO;
 using Interfaces;
-using DTO;
+using Microsoft.AspNetCore.Mvc;
+
 namespace Visitor_Placement_Tool.Controllers
 {
     public class RegistratieController : Controller
@@ -32,13 +33,14 @@ namespace Visitor_Placement_Tool.Controllers
         [HttpPost]
         public ActionResult Registreren(Bezoeker bezoeker)
         {
+            // Check of de bezoeker al geregistreerd is voor het evenement
             var bestaandeBezoeker = _bezoekerDAL.GetBezoekerById(bezoeker.ID);
             if (bestaandeBezoeker != null)
             {
                 ModelState.AddModelError("DubbeleAanmelding", "Deze bezoeker is al geregistreerd voor het evenement.");
                 return View(bezoeker);
             }
-
+            bezoeker.Groep_ID = 0;
             _bezoekerDAL.CreateBezoeker(bezoeker);
             return RedirectToAction("Index");
         }
@@ -46,23 +48,22 @@ namespace Visitor_Placement_Tool.Controllers
         [HttpPost]
         public ActionResult RegistrerenGroep(Groep groep, List<Bezoeker> bezoekers)
         {
+            // Zorg ervoor dat er minstens één volwassene in de groep zit
+            if (groep.VolwassenenAantal < 1)
             {
-                if (groep.VolwassenenAantal < 1)
-                {
-                    ModelState.AddModelError("GeenVolwassene", "Er moet minimaal één volwassene in de groep zitten.");
-                    return View(groep);
-                }
-
-                _groepDAL.CreateGroep(groep);
-
-                foreach (var bezoeker in bezoekers)
-                {
-                    bezoeker.Groep_ID = groep.ID;
-                    _bezoekerDAL.CreateBezoeker(bezoeker);
-                }
-
-                return RedirectToAction("Index");
+                ModelState.AddModelError("GeenVolwassene", "Er moet minimaal één volwassene in de groep zitten.");
+                return View(groep);
             }
+
+            _groepDAL.CreateGroep(groep);
+
+            foreach (var bezoeker in bezoekers)
+            {
+                bezoeker.Groep_ID = groep.ID;
+                _bezoekerDAL.CreateBezoeker(bezoeker);
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

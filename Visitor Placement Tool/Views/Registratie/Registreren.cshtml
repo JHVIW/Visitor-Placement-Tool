@@ -1,34 +1,35 @@
 ﻿@model DTO.Evenement
+<head>  
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/index.css" />
+</head>
+<header class="d-flex justify-content-center py-3">
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a href="/Evenement/" class="nav-link">Organisator</a></li>
+        <li class="nav-item"><a href="/Registratie" class="nav-link active" aria-current="page">Aanmelden</a></li>
+    </ul>
+</header>
+<h2>@Model.Naam</h2>
 
-@{
-    ViewBag.Title = "Registratie";
-}
-
-<h2>Registratie voor @Model.Naam</h2>
-
-<h3>Individuele registratie</h3>
-<form action="/Registratie/RegistrerenIndividueel" method="post">
-    <input type="hidden" name="Evenement_ID" value="@Model.ID" />
+<form action="/Registratie/Registreren" method="post">
+    <input type="hidden" name="EvenementId" value="@evenementId" />
     <label for="Naam">Naam:</label>
     <input type="text" id="Naam" name="Naam" required />
     <label for="Geboortedatum">Geboortedatum:</label>
     <input type="date" id="Geboortedatum" name="Geboortedatum" required />
-    <input type="submit" value="Individueel registreren" />
+    <input type="submit" value="Registreren" />
 </form>
 
-<h3>Groepsregistratie</h3>
 <form action="/Registratie/RegistrerenGroep" method="post">
     <input type="hidden" name="Evenement_ID" value="@Model.ID" />
-    <label for="TotaalAantalBezoekers">Totaal aantal bezoekers:</label>
-    <input type="number" id="TotaalAantalBezoekers" name="TotaalAantalBezoekers" required />
 
     <h3>Voer bezoekers in:</h3>
     <div id="bezoekers">
         <div class="bezoeker">
             <label for="Naam">Naam:</label>
-            <input type="text" id="Naam" name="Bezoekers[0].Naam" required />
+            <input type="text" name="Bezoekers[0].Naam" required />
             <label for="Geboortedatum">Geboortedatum:</label>
-            <input type="date" id="Geboortedatum" name="Bezoekers[0].Geboortedatum" required />
+            <input type="date" name="Bezoekers[0].Geboortedatum" required />
         </div>
     </div>
 
@@ -44,13 +45,13 @@
         let newBezoekerDiv = document.createElement('div');
 
         newBezoekerDiv.innerHTML = `
-                    <div class="bezoeker">
-                        <label for="Naam">Naam:</label>
-                        <input type="text" id="Naam" name="Bezoekers[${bezoekerIndex}].Naam" required />
-                        <label for="Geboortedatum">Geboortedatum:</label>
-                        <input type="date" id="Geboortedatum" name="Bezoekers[${bezoekerIndex}].Geboortedatum" required />
-                    </div>
-                `;
+                <div class="bezoeker">
+                    <label for="Naam">Naam:</label>
+                    <input type="text" name="Bezoekers[${bezoekerIndex}].Naam" required />
+                    <label for="Geboortedatum">Geboortedatum:</label>
+                    <input type="date" name="Bezoekers[${bezoekerIndex}].Geboortedatum" required />
+                </div>
+            `;
 
         bezoekersDiv.appendChild(newBezoekerDiv);
         bezoekerIndex++;

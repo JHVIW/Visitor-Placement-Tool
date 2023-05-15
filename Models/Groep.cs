@@ -15,6 +15,9 @@ namespace DTO
         public int KinderenAantal { get; set; }
         public int VolwassenenAantal { get; set; }
 
+        public Groep()
+        {
+        }
         public Groep(int id, int evenementId, DateTime aanmeldingsdatum, int totaalAantalBezoekers, int kinderenAantal, int volwassenenAantal)
         {
             ID = id;

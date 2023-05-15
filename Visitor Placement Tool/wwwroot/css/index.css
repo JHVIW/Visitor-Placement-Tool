@@ -48,3 +48,16 @@ th {
         box-shadow: 0 1px #666;
         transform: translateY(1px);
     }
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #3e8e41;
+}
+
+.nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #3e8e41;
+    text-decoration: none;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+}

@@ -26,20 +26,20 @@ namespace Visitor_Placement_Tool.Controllers
             return View();
         }
 
-        [HttpPost]  
+        [HttpPost]
         public IActionResult Aanmaken(Evenement evenement, int evenementId)
         {
 
-                Debug.WriteLine(System.Text.Json.JsonSerializer.Serialize(evenement));
-                evenement.ID = evenementId; 
+            Debug.WriteLine(System.Text.Json.JsonSerializer.Serialize(evenement));
+            evenement.ID = evenementId;
 
-                _evenementManager.MaakEvenement(
-                    evenement.ID,
-                    evenement.Naam,
-                    evenement.Datum,
-                    evenement.MaximumAantalBezoekers
-                );
-                return RedirectToAction("Index");
+            _evenementManager.MaakEvenement(
+                evenement.ID,
+                evenement.Naam,
+                evenement.Datum,
+                evenement.MaximumAantalBezoekers
+            );
+            return RedirectToAction("Index");
 
 
             return View(evenement);
@@ -59,22 +59,22 @@ namespace Visitor_Placement_Tool.Controllers
         }
 
         [HttpPost]
-        public IActionResult Bewerken(int id,Evenement evenement)
+        public IActionResult Bewerken(int id, Evenement evenement)
         {
 
-                _evenementManager.UpdateEvenement(id, evenement.Naam, evenement.Datum, evenement.MaximumAantalBezoekers);
-                return RedirectToAction("Index");
+            _evenementManager.UpdateEvenement(id, evenement.Naam, evenement.Datum, evenement.MaximumAantalBezoekers);
+            return RedirectToAction("Index");
 
             return View(evenement);
         }
 
         public IActionResult Verwijderen(int id)
         {
-          
+
             _evenementManager.VerwijderEvenement(id);
 
             return RedirectToAction("Index");
-            
+
         }
     }
 }

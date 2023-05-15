@@ -15,7 +15,7 @@ namespace DAL
 
         public BezoekerDAL(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("ConnectionString");
+            _connectionString = "Server=mssqlstud.fhict.local;Database=dbi482609_eventtool;User Id=dbi482609_eventtool;Password=Rviw2003%;";
         }
 
         public void CreateBezoeker(Bezoeker bezoeker)
@@ -29,6 +29,7 @@ namespace DAL
 
                 using (var command = new SqlCommand(query, connection))
                 {
+                    command.Parameters.AddWithValue("@EvenementID", bezoeker.Evenement_ID);
                     command.Parameters.AddWithValue("@ID", bezoeker.ID);
                     command.Parameters.AddWithValue("@Naam", bezoeker.Naam);
                     command.Parameters.AddWithValue("@Geboortedatum", bezoeker.Geboortedatum);

@@ -1,7 +1,15 @@
 ﻿@model IEnumerable<DTO.Evenement>
 <head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/index.css" />
 </head>
+<header class="d-flex justify-content-center py-3">
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a href="/Evenement/" class="nav-link">Organisator</a></li>
+        <li class="nav-item"><a href="/Registratie" class="nav-link active" aria-current="page">Aanmelden</a></li>
+    </ul>
+</header>
+
 <h2>Evenementen</h2>
 
 <table class="table">

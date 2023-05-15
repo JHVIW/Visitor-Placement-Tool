@@ -16,12 +16,16 @@
             private readonly IRijDAL _rijDAL;
             private readonly IStoelDAL _stoelDAL;
 
+
             public EvenementManager(IEvenementDAL evenementDAL, IVakDAL vakDAL, IRijDAL rijDAL, IStoelDAL stoelDAL)
             {
                 _evenementDAL = evenementDAL;
                 _vakDAL = vakDAL;
                 _rijDAL = rijDAL;
                 _stoelDAL = stoelDAL;
+                
+
+
             }
 
         public void MaakEvenement(int id, string naam, DateTime datum, int maxAantalBezoekers)
