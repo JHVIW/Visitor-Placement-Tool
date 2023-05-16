@@ -12,6 +12,13 @@
 
 <h2>Evenementen</h2>
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <script>
+        alert("@TempData["SuccessMessage"]");
+    </script>
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -33,6 +40,7 @@
                 <td>
                     <form action="/Registratie/Registreren" method="get">
                         <input type="hidden" name="id" value="@evenement.ID" />
+                        <input type="hidden" name="datum" value="@evenement.Datum.ToString("yyyy-MM-dd")" />
                         <input type="submit" value="Registreren" class="button" />
                     </form>
                 </td>

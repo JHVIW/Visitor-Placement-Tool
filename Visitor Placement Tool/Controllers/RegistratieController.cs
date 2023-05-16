@@ -1,6 +1,7 @@
 ﻿using DTO;
 using Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace Visitor_Placement_Tool.Controllers
 {
@@ -33,15 +34,9 @@ namespace Visitor_Placement_Tool.Controllers
         [HttpPost]
         public ActionResult Registreren(Bezoeker bezoeker)
         {
-            // Check of de bezoeker al geregistreerd is voor het evenement
-            var bestaandeBezoeker = _bezoekerDAL.GetBezoekerById(bezoeker.ID);
-            if (bestaandeBezoeker != null)
-            {
-                ModelState.AddModelError("DubbeleAanmelding", "Deze bezoeker is al geregistreerd voor het evenement.");
-                return View(bezoeker);
-            }
-            bezoeker.Groep_ID = 0;
+            bezoeker.Groep_ID = 0;  
             _bezoekerDAL.CreateBezoeker(bezoeker);
+            TempData["SuccessMessage"] = "Bezoeker succesvol geregistreerd.";
             return RedirectToAction("Index");
         }
 
@@ -52,16 +47,36 @@ namespace Visitor_Placement_Tool.Controllers
             if (groep.VolwassenenAantal < 1)
             {
                 ModelState.AddModelError("GeenVolwassene", "Er moet minimaal één volwassene in de groep zitten.");
-                return View(groep);
+                return RedirectToAction("Index");
             }
 
-            _groepDAL.CreateGroep(groep);
+            var evenement = _evenementDAL.GetEvenementById(groep.Evenement_ID);
+
+            // Genereer een random Groep_ID voor de hele groep
+            var randomGroepId = new Random().Next();
 
             foreach (var bezoeker in bezoekers)
             {
-                bezoeker.Groep_ID = groep.ID;
+                // Bereken leeftijd op basis van de datum van het evenement
+                var leeftijd = evenement.Datum.Subtract(bezoeker.Geboortedatum).Days / 365;
+
+                // Controleer of het een kind is (leeftijd onder de 13)
+                if (leeftijd < 13)
+                {
+                    // Controleer of er minimaal één volwassene in de groep zit
+                    if (groep.VolwassenenAantal < 1)
+                    {
+                        ModelState.AddModelError("GeenVolwassene", "Er moet minimaal één volwassene in de groep zitten.");
+                        return RedirectToAction("Index");
+                    }
+                }
+
+                // Wijs het random Groep_ID toe aan de bezoeker
+                bezoeker.Groep_ID = randomGroepId;
                 _bezoekerDAL.CreateBezoeker(bezoeker);
             }
+
+            _groepDAL.CreateGroep(groep);
 
             return RedirectToAction("Index");
         }

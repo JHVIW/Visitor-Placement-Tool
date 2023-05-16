@@ -24,16 +24,14 @@ namespace DAL
             {
                 connection.Open();
 
-                var query = "INSERT INTO Bezoeker (ID, Naam, Geboortedatum, Leeftijd, Groep_ID) " +
-                            "VALUES (@ID, @Naam, @Geboortedatum, @Leeftijd, @Groep_ID)";
+                var query = "INSERT INTO Bezoeker (Evenement_ID, Naam, Geboortedatum, Groep_ID) " +
+                            "VALUES (@EvenementID, @Naam, @Geboortedatum, @Groep_ID)";
 
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@EvenementID", bezoeker.Evenement_ID);
-                    command.Parameters.AddWithValue("@ID", bezoeker.ID);
                     command.Parameters.AddWithValue("@Naam", bezoeker.Naam);
                     command.Parameters.AddWithValue("@Geboortedatum", bezoeker.Geboortedatum);
-                    command.Parameters.AddWithValue("@Leeftijd", bezoeker.Leeftijd);
                     command.Parameters.AddWithValue("@Groep_ID", bezoeker.Groep_ID);
 
                     command.ExecuteNonQuery();
@@ -65,8 +63,8 @@ namespace DAL
                             ID = reader.GetInt32(reader.GetOrdinal("ID")),
                             Naam = reader.GetString(reader.GetOrdinal("Naam")),
                             Geboortedatum = reader.GetDateTime(reader.GetOrdinal("Geboortedatum")),
-                            Leeftijd = reader.GetInt32(reader.GetOrdinal("Leeftijd")),
-                            Groep_ID = reader.IsDBNull(reader.GetOrdinal("Groep_ID")) ? null : reader.GetInt32(reader.GetOrdinal("Groep_ID"))
+                            Groep_ID = reader.IsDBNull(reader.GetOrdinal("Groep_ID")) ? null : reader.GetInt32(reader.GetOrdinal("Groep_ID")),
+                            Evenement_ID = reader.GetInt32(reader.GetOrdinal("Evenement_ID")),
                         };
 
                         return bezoeker;
@@ -92,16 +90,16 @@ namespace DAL
                     int id = (int)reader["ID"];
                     string naam = (string)reader["Naam"];
                     DateTime geboortedatum = (DateTime)reader["Geboortedatum"];
-                    int leeftijd = (int)reader["Leeftijd"];
                     int? groepId = reader["Groep_ID"] as int?;
+                    int evenementId = (int)reader["Evenement_ID"];
 
                     Bezoeker bezoeker = new Bezoeker
                     {
                         ID = id,
                         Naam = naam,
                         Geboortedatum = geboortedatum,
-                        Leeftijd = leeftijd,
-                        Groep_ID = groepId
+                        Groep_ID = groepId,
+                        Evenement_ID = evenementId
                     };
 
                     bezoekers.Add(bezoeker);
@@ -115,13 +113,13 @@ namespace DAL
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                SqlCommand command = new SqlCommand("UPDATE Bezoeker SET Naam = @Naam, Geboortedatum = @Geboortedatum, Leeftijd = @Leeftijd, Groep_ID = @Groep_ID WHERE ID = @ID", connection);
+                SqlCommand command = new SqlCommand("UPDATE Bezoeker SET Naam = @Naam, Geboortedatum = @Geboortedatum, Leeftijd = @Leeftijd, Groep_ID = @Groep_ID, Evenement_ID = @Evenement_ID WHERE ID = @ID", connection);
 
                 command.Parameters.AddWithValue("@Naam", bezoeker.Naam);
                 command.Parameters.AddWithValue("@Geboortedatum", bezoeker.Geboortedatum);
-                command.Parameters.AddWithValue("@Leeftijd", bezoeker.Leeftijd);
                 command.Parameters.AddWithValue("@Groep_ID", bezoeker.Groep_ID ?? (object)DBNull.Value);
                 command.Parameters.AddWithValue("@ID", bezoeker.ID);
+                command.Parameters.AddWithValue("@Evenement_ID", bezoeker.Evenement_ID);
 
                 connection.Open();
 

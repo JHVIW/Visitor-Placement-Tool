@@ -1,5 +1,5 @@
 ﻿@model DTO.Evenement
-<head>  
+<head>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/index.css" />
 </head>
@@ -12,9 +12,9 @@
 <h2>@Model.Naam</h2>
 
 <form action="/Registratie/Registreren" method="post">
-    <input type="hidden" name="EvenementId" value="@evenementId" />
+    <input type="hidden" name="Evenement_ID" value="@Model.ID" />
     <label for="Naam">Naam:</label>
-    <input type="text" id="Naam" name="Naam" required />
+    <input type="text" id="Naam" name="Naam" autocomplete="off" required />
     <label for="Geboortedatum">Geboortedatum:</label>
     <input type="date" id="Geboortedatum" name="Geboortedatum" required />
     <input type="submit" value="Registreren" />
@@ -27,9 +27,9 @@
     <div id="bezoekers">
         <div class="bezoeker">
             <label for="Naam">Naam:</label>
-            <input type="text" name="Bezoekers[0].Naam" required />
+            <input type="text" name="bezoekers[0].Naam" autocomplete="off" required />
             <label for="Geboortedatum">Geboortedatum:</label>
-            <input type="date" name="Bezoekers[0].Geboortedatum" required />
+            <input type="date" name="bezoekers[0].Geboortedatum" required />
         </div>
     </div>
 
@@ -45,13 +45,13 @@
         let newBezoekerDiv = document.createElement('div');
 
         newBezoekerDiv.innerHTML = `
-                <div class="bezoeker">
-                    <label for="Naam">Naam:</label>
-                    <input type="text" name="Bezoekers[${bezoekerIndex}].Naam" required />
-                    <label for="Geboortedatum">Geboortedatum:</label>
-                    <input type="date" name="Bezoekers[${bezoekerIndex}].Geboortedatum" required />
-                </div>
-            `;
+                    <div class="bezoeker">
+                        <label for="Naam">Naam:</label>
+                        <input type="text" name="bezoekers[${bezoekerIndex}].Naam" required />
+                        <label for="Geboortedatum">Geboortedatum:</label>
+                        <input type="date" name="bezoekers[${bezoekerIndex}].Geboortedatum" required />
+                    </div>
+                `;
 
         bezoekersDiv.appendChild(newBezoekerDiv);
         bezoekerIndex++;
